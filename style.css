@@ -1,0 +1,19 @@
+h1{
+    text-align:center;
+    margin: 0 auto;
+    border:30px solid transparent;
+    border-image: url(border.png) 1000 1 round;
+    font-family: Satisfy, cursive;
+    border-left-width: 45px;
+    border-top-width: 45px;
+    border-right-width: 45px;
+    border-bottom-width: 45px;
+    height: 65px;
+    width: 300px;
+}
+body{
+    background: #ffffad;
+}
+p#intro{
+    text-align:center;
+}
