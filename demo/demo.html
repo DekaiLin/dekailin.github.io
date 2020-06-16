@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script type="text/javascript" src="jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script type="text/javascript" src ="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" title="Q1" href="../style.css" />
+    <title>Pokémon</title>
+    <style type="text/css"> 
+        #pikachu{
+            position: absolute;
+            height: 153px;
+            width : 153px;
+            top:80px;
+            left:45%;
+        }
+        #pokeball{
+            position: absolute;
+            height: 120px;
+            width: 120px;
+            bottom: 80px;
+            left: 45%;
+        }
+        #masterball{
+            position: absolute;
+            height: 120px;
+            width: 120px;
+            bottom: 80px;
+            left: 15%;
+        }
+    </style>
+    <script>
+        $(function(){
+            alert("Wild Pikachu appeared!")
+            $("#masterball").hide();
+            $("#replay").hide();
+            $("#pokeball" ).draggable();
+            $("#masterball" ).draggable();
+
+            var count = 0;
+            var catchId = -1;
+            var catchable = 1;
+            $("#pikachu").droppable({
+                drop: function( event, ui )
+                {
+                    var draggableId = ui.draggable.attr("id");
+                    
+                    if(catchable == 1){
+                        $("#pikachu").hide();
+                        if(draggableId == "pokeball"){
+                            $("#pokeball").promise().done(function(){
+                                if (Math.random() > 0.7){
+                                    alert("Gotcha! Pikachu was caught");
+                                    $("#replay").show();
+                                    catchId = 0;
+                                    catchable = 0;
+                                }
+                                else{
+                                    alert("Oh, no! The Pokémon broke free!");
+                                    count++;
+                                    if (count >= 2){
+                                        alert("Now try with the masterabll!");
+                                        $("#masterball").show();
+                                    }
+                                    $("#pikachu").show();
+                                    $("#pokeball").css({"position": "absolute","height": "120px","width" :"120px","top":"400px","left":"45%"}); 
+                                    $("#pokeball").show();
+                                }  
+                            });
+                        }
+                        else{
+                            alert("Gotcha! Pikachu was caught");
+                            $("#replay").show();
+                            catchId = 1;
+                            catchable = 0;
+                        }
+                    }
+                }
+            });
+            $("#masterball").dblclick(function(){
+                if(catchId == -1 || catchId == 0){
+                    alert("empty");
+                }
+                else if(catchId == 1){
+                    $("#pikachu").css({"position": "absolute","height": "153px","width" :"153px","top":"80px","left":"80%"}); 
+                    $("#pikachu").toggle();
+                }
+            });
+            $("#pokeball").dblclick(function(){
+                if(catchId == -1 || catchId == 1){
+                    alert("empty");
+                }
+                else if(catchId == 0){
+                    $("#pikachu").css({"position": "absolute","height": "153px","width" :"153px","top":"80px","left":"80%"}); 
+                    $("#pikachu").toggle();
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <img src ="p3.png" alt="pikachu" id="pikachu">
+    <img src ="pokeball.png" alt="pokeball" id = "pokeball">
+    <img src ="masterball.png" alt = "masterball" id = "masterball">
+    <p>you can double click the poke ball to check the Pokémon you catched.</p>
+    <input type=button value="replay" onclick="location.reload()" id = "replay">
+
+</body>
+</html>
